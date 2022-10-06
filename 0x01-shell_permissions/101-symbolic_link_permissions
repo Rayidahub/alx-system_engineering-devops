@@ -1,2 +1,2 @@
-#!/bin/basg
+#!/bin/bash
 chmod -h vincent:staff _hello

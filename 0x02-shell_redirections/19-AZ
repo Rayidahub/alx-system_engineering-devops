@@ -1,2 +1,2 @@
 #!/bin/bash
-tr "A" "Z" | re "c" "e"
+tr "A" "c" | "Z" "e"

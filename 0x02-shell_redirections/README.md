@@ -1,1 +1,1 @@
-Write a script that reverse its input.
+Write a script that displays a confused smiley

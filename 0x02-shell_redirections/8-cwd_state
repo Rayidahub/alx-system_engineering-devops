@@ -1,1 +1,2 @@
-Write a script that writes into the file ls_cwd_content the result of the command
+#!/bin/bash
+ls -la > ls-cwd_content

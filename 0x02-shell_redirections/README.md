@@ -1,1 +1,1 @@
-Write a script that writes into the file ls_cwd_content the result of the command
+Write a script that counts the number of directories and sub-directories in the current directory

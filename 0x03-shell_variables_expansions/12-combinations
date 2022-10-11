@@ -1,2 +1,2 @@
 #!/bin/bash
-printf "%2f\n" {a..2}{a..2} | grep -v
+printf "%s\n" {a..z}{a..z} | grep -v "00"

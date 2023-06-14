@@ -1,49 +1,56 @@
-# Mock Postmortem
+# Here is the link to the blog post on Postmortem
+https://www.notion.so/rayida/Postmortem-82cef09cf10140da9ea371db2b3251d3?pvs=4
 
-## Issue Summary
 
-From Thursday, May 21, 2020, 12:00 AM to Thursday, May 21, 2020, 12:30 AM the wordpress page was down after uploading to the web server. 1% of users were affected after this issue. The root cause was a bad configuration in the wp-settings.php.
+**POSTMORTEM:**
+# Postmortem: Outage in Web Application - June 1, 2023
 
-## Timeline
 
-On May 21, 2020, 12:00 AM: The DevOps Junior engineer updated the web server.
+Issue Summary:
 
-At 12:05 AM: The DevOps Junior engineer detected the wordpress site was down.
+Duration: June 1, 2023, 10:00 AM to June 1, 2023, 2:00 PM (UTC)
 
-At 12:07 AM: The DevOps Junior engineer realized  that web server error was “500 Internal Server Error”.
+**Impact:** During the specified duration, the web application experienced a complete outage. This resulted in prolonged loading times and error messages for all users attempting to access the application. Roughly 80% of users were affected.
 
-At 12:10 AM: The DevOps Junior engineer started debugging the web server and assumed the problem was a missing file.
+### **Timeline:**
 
-At 12:15 AM: After checking all files were present in the /var/www/html/ folder, the DevOps Junior Engineer assumed the problem was when importing the files and used “strace” built-in to debug.
+- 10:00 AM: The issue was detected when multiple monitoring alerts were triggered, indicating high latency and increased error rates.
+- 10:05 AM: The engineering team was notified of the issue through the incident management system.
+- 10:10 AM: Initial investigation began, focusing on the application servers and underlying infrastructure.
+- 10:30 AM: A misconfiguration in the load balancer was suspected as the root cause, leading to further investigation in that area.
+- 11:00 AM: The misconfiguration hypothesis was ruled out after verifying the load balancer's settings.
+- 11:15 AM: Attention shifted to the database servers due to potential performance issues.
+- 12:00 PM: Performance metrics and logs analysis revealed no abnormalities on the database servers.
+- 12:30 PM: The incident was escalated to the infrastructure team for additional support.
+- 1:00 PM: Intensive analysis of network traffic and packet captures commenced.
+- 1:45 PM: A significant increase in malicious traffic was discovered, indicating a DDoS attack as the root cause.
+- 2:00 PM: The incident was resolved by implementing appropriate DDoS mitigation measures.
 
-At 12:17 AM: The DevOps Junior engineer searched the process “of www-data” with “ps auxf” command.
+### Root Cause and Resolution:
 
-At 12:19 AM: The DevOps Junior engineer used curl 127.0.0.1 to test the “www-data” process.
+The root cause of the outage was identified as a DDoS attack targeting the web application. The attack flooded the network with a massive volume of requests, overwhelming the servers and leading to the application's unresponsiveness.
 
-At 12:25 AM: The DevOps Junior engineer realized that it had an error when importing the /var/www/html/wp-includes/class-wp-locale.phpp file in /var/www/html/wp-settings.php file.
+### To address the issue, the following steps were taken:
 
-At 12:28 AM: The DevOps Junior engineer opened the file /var/www/html/wp-settings.php and fixed the import name class-wp-locale.phpp to class-wp-locale.php.
+1. Immediate implementation of DDoS mitigation techniques to filter out the malicious traffic and reduce the impact on the application.
+2. Configuration adjustments in the network infrastructure to improve resilience against future DDoS attacks.
+3. Strengthening of firewall rules to block suspicious traffic patterns and prevent similar attacks in the future.
 
-At 12:30 AM: The DevOps Junior engineer tested the web server with curl 127.0.0.1 again and the problem was solved.
+### Corrective and Preventative Measures:
 
-## Root cause and resolution
+To prevent future outages and improve overall system resilience, the following measures will be implemented:
 
-The problem was the DevOps Junior engineer added an extra “p” letter at the end of the “class-wp-locale.php” file, so changed the name to “class-wp-locale.phpp” when he tried to update the wordpress site. Therefore, when the “class-wp-locale.phpp” file was imported in the /var/www/html/wp-settings.php the system failed because the file did not exist.
+1. Enhance monitoring capabilities to proactively detect and mitigate DDoS attacks, including real-time traffic analysis and anomaly detection.
+2. Implement rate limiting and throttling mechanisms to protect against excessive traffic and ensure a fair distribution of resources.
+3. Regularly review and update firewall rules to adapt to evolving threats and implement intrusion prevention systems.
+4. Conduct regular penetration testing and security audits to identify vulnerabilities and address them promptly.
+5. Establish incident response plans that clearly define roles and responsibilities, ensuring swift and coordinated actions during similar incidents.
 
-To solve this problem the engineer checked the running process(ps auxf) and debug the www-data process using strace (strace www-data). There, he read the message “/var/www/html/wp-includes/class-wp-locale.phpp ENOENT (No such file or directory)”. The DevOps Junior engineer realized that had an error in the name of that file, he opened the “/var/www/html/wp-settings.php” file, search the “class-wp-locale.phpp” file, delete the extra “p” letter and save the changes.
+### Tasks to Address the Issue:
 
-## Corrective and preventative measures  
+1. Update DDoS mitigation strategy and document the procedures for immediate response.
+2. Review and enhance network monitoring tools to detect and analyze DDoS attacks more effectively.
+3. Conduct a post-incident analysis session involving all relevant teams to share findings, lessons learned, and potential improvements.
+4. Develop and execute a comprehensive security training program for all employees to raise awareness about DDoS attacks and appropriate mitigation techniques.
 
-To avoid this type of error it is recommended to change the permissions of the /var/www/html/wp-settings.php to only be handled by the DevOps Senior engineer and do not let the Junior engineers make the deploy of the project.
-
-To address this king of issues you can follow the below steps.
-
--   Check the server is up, so use a request to it. Example: curl 127.0.0.1
-    
--   Check all the processes involved (mysql, nginx, apache, PHP) are up. Example: ps auxf.
-    
--   Debug the web server process when a request arrives. Example: strace PHP
-    
--   Read each message displayed.
-    
--   Solve the problem.
+***By implementing these measures and continuously refining our incident response strategies, we aim to strengthen the web application's stability and security, minimizing the impact of potential future outages.***

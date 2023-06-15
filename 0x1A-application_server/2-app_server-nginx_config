@@ -15,18 +15,9 @@
 #
 server {
         listen 80 default_server;
-        add_header X-Served-By 1231-web-01;
-        error_page 404 /custom_404.html; location = /custom_404.html {root /usr/share/nginx/html;
-        internal;}
-        rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;
         listen [::]:80 default_server;
-        location /hbnb_static/ {
-                alias /data/web_static/current/;
-        }
-        location /airbnb-onepage/ {
-                proxy_pass http://127.0.0.1:5000;
-        }
 
+add_header X-Served-By 896-web-01;
         # SSL configuration
         #
         # listen 443 ssl default_server;
@@ -50,6 +41,10 @@ server {
 
         server_name _;
 
+        location /airbnb-onepage/ {
+                include proxy_params;
+                proxy_pass http://127.0.0.1:5000;
+        }
         location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.

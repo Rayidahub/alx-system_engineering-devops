@@ -11,7 +11,7 @@ Issue Summary:
 Duration: June 1, 2023, 10:00 AM to June 1, 2023, 2:00 PM (UTC)
 
 **Impact:** During the specified duration, the web application experienced a complete outage. This resulted in prolonged loading times and error messages for all users attempting to access the application. Roughly 80% of users were affected.
-
+image.png
 ### **Timeline:**
 
 - 10:00 AM: The issue was detected when multiple monitoring alerts were triggered, indicating high latency and increased error rates.
@@ -54,3 +54,5 @@ To prevent future outages and improve overall system resilience, the following m
 4. Develop and execute a comprehensive security training program for all employees to raise awareness about DDoS attacks and appropriate mitigation techniques.
 
 ***By implementing these measures and continuously refining our incident response strategies, we aim to strengthen the web application's stability and security, minimizing the impact of potential future outages.***
+
+
